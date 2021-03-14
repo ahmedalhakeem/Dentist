@@ -1,0 +1,21 @@
+{% extends 'patientinfo/layout.html'%}
+{% load static %}
+{% block title %}
+    Index Page
+{% endblock %}
+
+{% block content %}
+    <form action="{% url 'index' %}" method="POST">
+        {% csrf_token %}
+        <div class="imagcontainer">
+            <img src="{% static 'patientinfo/images/avatar.png' %}" alt="Dentist" class="avatar">
+        </div>
+        <div class="container">
+            {{ login_admin }} 
+        
+        
+        
+        <input type="submit" value="Login" >
+    </div>
+    </form>
+{% endblock %}

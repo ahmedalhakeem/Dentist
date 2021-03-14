@@ -1,0 +1,8 @@
+{% extends 'patientinfo/layout.html'%}
+{% block title %}
+    Main Page
+{% endblock %}
+{% block content %}
+     <h2>This is the main page</h2>
+     <a href="{% url 'logout_page' %}">Logout</a>
+{% endblock %}
