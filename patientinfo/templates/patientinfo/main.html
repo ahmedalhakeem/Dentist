@@ -1,8 +1,16 @@
 {% extends 'patientinfo/layout.html'%}
+{% load static %}
 {% block title %}
     Main Page
 {% endblock %}
 {% block content %}
      <h2>This is the main page</h2>
      <a href="{% url 'logout_page' %}">Logout</a>
+     <div class="wrapper">
+         <div class="add">
+             <button>أضافة مراجع</button>
+         </div>
+         <div class="edit"><button>تعديل مراجعة</button></div>
+     </div>
+     
 {% endblock %}

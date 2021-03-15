@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .forms import Login_admin
+from .forms import Login_admin, Add_Patient
 from .models import *
 from django.urls import reverse
 
@@ -34,3 +34,11 @@ def logout_page(request):
 def main(request):
     return render(request, 'patientinfo/main.html')
 
+def add_patient(request):
+    if request.method == "POST":
+        return 
+    elif request.method=="GET":
+        patient = Add_Patient()
+        return render(request, "patientinfo/add_patient.html",{
+            "patient" : patient
+        })
