@@ -49,16 +49,27 @@ h1.apptitle{
     left: 50%;
 }
 .add {
-    background: #FFFF00;
-    width: 50%;
+    border: 3px solid #f1f1f1;
+    width:30%;
     padding: 20px;
     text-align: center;
+    margin: 10px 20px;
+    
 }
-.edit{ 
-    background: #4caf50;
-    width: 50%;
+.search{ 
+    border: 3px solid #f1f1f1;
+    width: 30%;
     padding: 20px;
     text-align: center;
+    margin: 10px 20px;
+
+}
+.all-patients{
+    border: 3px solid #f1f1f1;
+    width: 30%;
+    padding: 20px;
+    text-align: center;
+    margin: 10px 20px;
 
 }
 /* CSS Styling of add_patient*/
@@ -71,4 +82,31 @@ h1.apptitle{
     margin: auto;
     text-align: center;
 }
+ 
+/* CSS styling for List of Patients*/
+.list-patients{
+    position: absolute;
+    top: 80%;
+    transform: translate(-50%, -50%);
+    /*border: 3px solid #ccc;*/
+    width: 40%;
+    margin: auto;
+    left: 50%;
+    text-align: center;
+    /*justify-content: center;*/
+}
+.list-patients >h1{
+    font-size: 90px;
+    color: #4caf50;
+}
+.patient-name{
+    border: 2px dotted #4caf50;
+    margin: 10px auto;
+    border-radius: 5%;
+    width: 50%;
+    position:relative;
     
+}
+.patient-name a{
+    text-decoration: none;
+}

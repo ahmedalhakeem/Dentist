@@ -36,9 +36,37 @@ def main(request):
 
 def add_patient(request):
     if request.method == "POST":
-        return 
+        patient = Add_Patient(request.POST or None)
+        if patient.is_valid():
+            name = patient.cleaned_data['name']
+            age = patient.cleaned_data['age']
+            gender = patient.cleaned_data['gender']
+            contact = patient.cleaned_data['contact']
+
+            #save it in the database
+            new_patient = Patients(name=name, age=age, gender=gender, contact_number=contact)
+            for item in Patients.objects.all():
+                if (new_patient.name == item.name):
+                    return render(request, 'patientinfo/add_patient.html',{
+                        "message": "هذا الاسم تم ادخاله مسبقا في النظام"
+                    }) 
+                else:
+                    new_patient.save()
+            
+                    return HttpResponseRedirect(reverse('patient' ,args=(new_patient.pk,)))
     elif request.method=="GET":
         patient = Add_Patient()
         return render(request, "patientinfo/add_patient.html",{
             "patient" : patient
         })
+
+def patient(request, patient_id):
+    patient = Patients.objects.get(pk=patient_id)
+    return render(request, 'patientinfo/patient_profile.html',{
+        "patient" : patient
+    })
+def list_patients(request):
+    all_patients = Patients.objects.all()
+    return render(request, 'patientinfo/list_patients.html',{
+        "list_patients": all_patients
+    })

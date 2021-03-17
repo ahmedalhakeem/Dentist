@@ -1,0 +1,17 @@
+{% extends 'patientinfo/layout.html' %}
+{% load static %}
+{% block title %}
+قائمة المراجعين
+{% endblock %}
+{% block content %}
+
+
+<div class="list-patients">
+    <h1>قائمة المراجعين</h1>
+    {% for patient in list_patients %}
+        <div class="patient-name">
+            <h1><a href="{% url 'patient' patient.id %}">{{ patient.name }}</a></h1>
+        </div>
+    {% endfor %}
+</div>
+{% endblock%}
