@@ -110,3 +110,11 @@ h1.apptitle{
 .patient-name a{
     text-decoration: none;
 }
+/* CSS styling for patient profile*/
+.container {
+    border: 2px solid black;
+}
+.col{
+    border: 1px solid #4caf50;
+    text-align: center;
+}

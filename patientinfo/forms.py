@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from patientinfo.models import User
 from .models import *
+import datetime
 
 class Login_admin(forms.Form):
     username= forms.CharField(label="Username", required=True, widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Enter Username"}))
@@ -20,8 +21,8 @@ class Add_Patient(forms.Form):
     contact = forms.CharField(label="Contact number", required=True, widget=forms.NumberInput(attrs={"class": "form-control", "placeholder": "Enter Patient's contact number"}))
 
 class Add_appointment(forms.Form):
-    patient_name = forms.ModelChoiceField(label="patient's name",queryset=(Patients.objects.all()))
-    treatment_date = forms.DateField(label="date")
+    #patient_name = forms.ModelChoiceField(label="patient's name",queryset=(Patients.objects.all()))
+    treatment_date = forms.DateField(label="date", widget=forms.SelectDateWidget, initial=datetime.datetime.today())
     procedure = forms.CharField(label="Treatment")
     total_cost = forms.IntegerField(label="Total cost")
     paid_cost = forms.IntegerField(label="Paid cost")

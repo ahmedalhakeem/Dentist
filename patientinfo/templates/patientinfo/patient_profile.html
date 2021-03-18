@@ -4,5 +4,47 @@
 Patient's Profile
 {% endblock %}
 {% block content %}
-{{ patient }}
+    <div class="container">
+        <h1 style="text-align: center;">معلومات المريض</h1>
+        <div class="row">
+            <div class="col"><h1>الجنس</h1> </div>
+            <div class="col"><h1>العمر</h1> </div>
+            <div class="col"><h1>رقم الهاتف</h1></div>
+            <div class="col"><h1>الاسم</h1> </div>
+        </div>
+        <div class="row">
+            <div class="col">{{patient.gender}}</div>
+            <div class="col">{{patient.age}}</div>
+            <div class="col">{{patient.contact_number}}</div>
+            <div class="col">{{patient.name}}</div>
+        </div>
+    </div>
+    <form action="">
+        {% csrf_token %}
+        <input type="text" name="{{patient.name}}" value="{{patient.name}}">
+        {{form}}
+        <input type="submit">
+    </form>
+    <!--<div>
+        <h1>add appointment</h1>
+        <form action="{% url 'add_appointment' patient.id %}" method="POST">
+            {% csrf_token %}
+            <label for="Patient_name">Patient_name</label>
+            <input type="text" name="{{patient.name}}" value="{{patient.name}}">
+            <label for="date">Date</label>
+            <input type="date" name="date" value="2021-05-10">
+            <label for="procedure">Procedure</label>
+            <input type="text" name="procedure">
+            <label for="total_cost">total_cost</label>
+            <input type="number" name="total_cost" id="">
+            <label for="paid_cost">paid_cost</label>
+            <input type="number" name="paid_cost">
+            <input type="submit" value="submit">
+        </form>
+    </div>-->
+    <div class="appointments">
+        {% for app in appointment %}
+            <h1>{{app.patient_name.name}}</h1>
+        {% endfor %}
+    </div>
 {% endblock%}
