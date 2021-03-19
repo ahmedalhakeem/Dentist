@@ -109,4 +109,6 @@ h1.apptitle{
 }
 .patient-name a{
     text-decoration: none;
+    width: 80%;
 }
+/* CSS styling for patient info*/

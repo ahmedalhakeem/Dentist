@@ -70,3 +70,7 @@ def list_patients(request):
     return render(request, 'patientinfo/list_patients.html',{
         "list_patients": all_patients
     })
+
+def appointment(request, patient_id):
+    patient_name = Patients.objects.get(pk=patient_id)
+    
