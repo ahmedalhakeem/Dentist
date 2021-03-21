@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .forms import Login_admin, Add_Patient
+from .forms import *
 from .models import *
 from django.urls import reverse
 
@@ -62,15 +62,38 @@ def add_patient(request):
 
 def patient(request, patient_id):
     patient = Patients.objects.get(pk=patient_id)
+    appointment = Treatment.objects.filter(patient_name=patient)
+    print(appointment)
     return render(request, 'patientinfo/patient_profile.html',{
-        "patient" : patient
+        "patient" : patient,
+        "appointment": appointment,
+        "form": Add_appointment()
     })
 def list_patients(request):
     all_patients = Patients.objects.all()
     return render(request, 'patientinfo/list_patients.html',{
         "list_patients": all_patients
     })
+def add_appointment(request, patient_id):
+    patient = Patients.objects.get(pk=patient_id)
+    print(patient)
+    if request.method == "POST":
+        form = Add_appointment(request.POST or None)
+        if form.is_valid():
+            treatment_date= form.cleaned_data['treatment_date']
+            procedure= form.cleaned_data['procedure']
+            total_cost= form.cleaned_data['total_cost']
+            paid_cost = form.cleaned_data['paid_cost']
+            remaining_cost = form.cleaned_data['remaining_cost']
+        
+            
+        #remaining_cost = total_cost-paid_cost
+        
+        #save it
+            new_appointment = Treatment(patient_name=patient, treatment_date=treatment_date, procedure=procedure, total_cost=total_cost, paid_cost=paid_cost, remaining_cost=remaining_cost)
+        if new_appointment is not None:
+            new_appointment.save()
+            return HttpResponseRedirect(reverse('patient', args=(patient_id,)))
+        else:
+            return HttpResponse("!!!!")
 
-def appointment(request, patient_id):
-    patient_name = Patients.objects.get(pk=patient_id)
-    

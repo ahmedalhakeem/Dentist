@@ -4,10 +4,72 @@
 Patient's Profile
 {% endblock %}
 {% block content %}
-    <div class="continer">
-
-    </div>
-        <div class="appointmen">
-            <h1>المراجعات </h1>
+    <div class="container">
+        <h1 style="text-align: center;">معلومات المريض</h1>
+        <div class="row">
+            <div class="col"><h1>الجنس</h1> </div>
+            <div class="col"><h1>العمر</h1> </div>
+            <div class="col"><h1>رقم الهاتف</h1></div>
+            <div class="col"><h1>الاسم</h1> </div>
         </div>
+        <div class="row">
+            <div class="col">{{patient.gender}}</div>
+            <div class="col">{{patient.age}}</div>
+            <div class="col">{{patient.contact_number}}</div>
+            <div class="col">{{patient.name}}</div>
+        </div>
+    </div>
+    <form action="{% url 'add_appointment' patient.id %}" method="POST">
+
+        {% csrf_token %}
+        <input type="text" name="{{patient.name}}" value="{{patient.name}}">
+        {{form}}
+        <input type="submit">
+    </form>
+    <!--<div>
+        <h1>add appointment</h1>
+        <form action="{% url 'add_appointment' patient.id %}" method="POST">
+            {% csrf_token %}
+            <label for="Patient_name">Patient_name</label>
+            <input type="text" name="{{patient.name}}" value="{{patient.name}}">
+            <label for="date">Date</label>
+            <input type="date" name="date" value="2021-05-10">
+            <label for="procedure">Procedure</label>
+            <input type="text" name="procedure">
+            <label for="total_cost">total_cost</label>
+            <input type="number" name="total_cost" id="">
+            <label for="paid_cost">paid_cost</label>
+            <input type="number" name="paid_cost">
+            <input type="submit" value="submit">
+        </form>
+    </div>-->
+    <div class="appointments" style="text-align: center;">
+        <h1>ألمراجعات السابقة</h1>
+        <table class="table table-success table-bordered">
+            <thead></thead>
+            <tr>
+                <th>اسم المريض</th>
+                <th>تاريخ المراجعة</th>
+                <th>العلاج</th>
+                <th>المبلغ الكلي</th>
+                <th>المبلغ المدفوع</th>
+                <th>المبلغ المتبقي</th>
+                <th>هل توجد مراجعة قادمة</th>
+                <th>تاريخ المراجعة القادمة</th>
+                
+            </tr>
+            {% for item in appointment  %}
+            <tr>
+                <td>{{ item.patient_name.name }}</td>
+                <td>{{ item.treatment_date }}</td>
+                <td>{{ item.procedure }}</td>
+                <td>{{ item.total_cost }}</td>
+                <td>{{ item.paid_cost }}</td>
+                <td>{{ item.remaining_cost }}</td>
+                <td>{{ item.status }}</td>
+                <td>{{ item.new_appointment }}</td>
+
+            </tr>
+            {% endfor %}
+        </table>
 {% endblock%}
