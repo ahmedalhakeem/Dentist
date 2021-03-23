@@ -26,7 +26,7 @@ class Add_appointment(forms.Form):
     procedure = forms.CharField(label="Procedure", widget=forms.TextInput(attrs={"class": "form-control"}))
     total_cost = forms.IntegerField(label="Total cost", widget=forms.NumberInput(attrs={'class': 'form-control'}))
     paid_cost = forms.IntegerField(label="Paid_cost", widget=forms.NumberInput(attrs={'class': 'form-control'}))
-    remaining_cost= forms.CharField(label="Remaining cost", widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    #remaining_cost= forms.CharField(label="Remaining cost", widget=forms.NumberInput(attrs={'class': 'form-control'}))
     status = forms.BooleanField(label="is there any extra appointment", required=False)
 
 

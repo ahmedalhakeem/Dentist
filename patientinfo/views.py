@@ -42,18 +42,25 @@ def add_patient(request):
             age = patient.cleaned_data['age']
             gender = patient.cleaned_data['gender']
             contact = patient.cleaned_data['contact']
-
+            
             #save it in the database
             new_patient = Patients(name=name, age=age, gender=gender, contact_number=contact)
+            
             for item in Patients.objects.all():
-                if (new_patient.name == item.name):
+                print(item)
+                if new_patient.name == item.name :
                     return render(request, 'patientinfo/add_patient.html',{
                         "message": "هذا الاسم تم ادخاله مسبقا في النظام"
                     }) 
                 else:
                     new_patient.save()
-            
+                    #return HttpResponse("save successfully")
                     return HttpResponseRedirect(reverse('patient' ,args=(new_patient.pk,)))
+
+                
+
+                #if(new_patient.name == item.name):
+                    
     elif request.method=="GET":
         patient = Add_Patient()
         return render(request, "patientinfo/add_patient.html",{
@@ -63,7 +70,7 @@ def add_patient(request):
 def patient(request, patient_id):
     patient = Patients.objects.get(pk=patient_id)
     appointment = Treatment.objects.filter(patient_name=patient)
-    print(appointment)
+    #print(appointment)
     return render(request, 'patientinfo/patient_profile.html',{
         "patient" : patient,
         "appointment": appointment,
@@ -84,7 +91,7 @@ def add_appointment(request, patient_id):
             procedure= form.cleaned_data['procedure']
             total_cost= form.cleaned_data['total_cost']
             paid_cost = form.cleaned_data['paid_cost']
-            remaining_cost = form.cleaned_data['remaining_cost']
+            remaining_cost = (total_cost - paid_cost) 
         
             
         #remaining_cost = total_cost-paid_cost
@@ -93,7 +100,18 @@ def add_appointment(request, patient_id):
             new_appointment = Treatment(patient_name=patient, treatment_date=treatment_date, procedure=procedure, total_cost=total_cost, paid_cost=paid_cost, remaining_cost=remaining_cost)
         if new_appointment is not None:
             new_appointment.save()
+
+
+            next_date = request.GET.get('next_date')
+            next_date = Extra_appointment(next_appointment=next_date)
+            next_date.save()
+
+
+            new_appointment.new_appointment.add(next_date)
+
             return HttpResponseRedirect(reverse('patient', args=(patient_id,)))
         else:
             return HttpResponse("!!!!")
+
+
 
